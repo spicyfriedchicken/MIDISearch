@@ -16,7 +16,7 @@ The ML Inference Server receives image inputs from clients and routes them effic
 
 The Client is the user-facing entry point into the inference system. It prepares the image/audio/video input, encodes it according to a communication protocol (e.g., Protobuf for gRPC), and sends the request to the Router along with metadata such as the model to run, desired parameters, and any routing hints.
 
-Responsibilities:
+### Responsibilities:
 
     Accept user input (image, audio, etc.)
 
@@ -56,6 +56,8 @@ gRPC offers efficient binary encoding via Protobuf, built-in streaming, and stro
 
 ZeroMQ provides ultra-low latency and flexibility in communication patterns, making it a strong choice for internal high-frequency inference workloads. However, its lack of built-in schemas and reliability features makes it better suited for backend/internal layers than client-facing APIs.
 
+### Comparing gRPC and ZeroMQ:
+
 | Criterion                           | **gRPC**                                                                               | **ZeroMQ**                                                                                      |
 | ----------------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | **Binary data support**             | Encodes via Protobuf; good for small-to-medium images (e.g., ≤ 1MB); base64 not needed | Sends raw bytes directly; ideal for larger images and serialized tensors                        |
@@ -74,7 +76,7 @@ While both gRPC and ZeroMQ support binary data transfer, gRPC was chosen for the
 
 The Router is the central coordinator that receives validated inference requests from the client and dispatches them to appropriate worker nodes. It parses the request, determines routing logic (e.g., which model or GPU to use), manages timeouts, and serves as the reply gateway back to the client. It does not run inference itself.
 
-Responsibilities:
+### Responsibilities:
 
     Receive and parse gRPC request
 
@@ -143,7 +145,7 @@ The Worker Node is a dedicated process responsible for executing inference jobs 
 
 The Data Layer of the Worker Node handles everything from loading the trained SRCNN model (exported from PyTorch via ONNX) to executing optimized GPU inference using TensorRT. It preprocesses raw image bytes into normalized tensors, runs the super-resolution model on ImageNet-scale inputs using CUDA-accelerated execution, and postprocesses the output into final image formats. This layer ensures the inference pipeline is both accurate and high-performance, leveraging FP16 or INT8 optimizations where possible.
 
-Tasks to implement:
+### Tasks to implement:
 
 | Module                               | Description                                                           |
 | ------------------------------------ | --------------------------------------------------------------------- |
