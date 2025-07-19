@@ -70,7 +70,7 @@ ZeroMQ provides ultra-low latency and flexibility in communication patterns, mak
 | **Maintainability**                 | `.proto` acts as a clean schema contract; easy for other teams to consume              | Protocol drift risk unless you formalize a schema (e.g., Protobuf over ZeroMQ)                  |
 | **Extensibility for observability** | First-class support (e.g., OpenTelemetry interceptors, logging middleware)             | Must be done manually                                                                           |
 
-While both gRPC and ZeroMQ support binary data transfer, gRPC was chosen for the Client ⇄ Router layer because it offers structured, versioned APIs with first-class support for deadlines, retries, and streaming, making it significantly easier to build, maintain, and extend. Unlike ZeroMQ, gRPC provides a strong schema contract via .proto files, excellent language support, built-in observability (e.g., OpenTelemetry), and simple client integration without the need for manual connection or message framing logic. Although ZeroMQ excels in raw performance and flexibility, these advantages are better leveraged internally (e.g., Router ⇄ Worker).
+While both gRPC and ZeroMQ support binary data transfer, gRPC was chosen for the Client <-> Router layer because it offers structured, versioned APIs with first-class support for deadlines, retries, and streaming, making it significantly easier to build, maintain, and extend. Unlike ZeroMQ, gRPC provides a strong schema contract via .proto files, excellent language support, built-in observability (e.g., OpenTelemetry), and simple client integration without the need for manual connection or message framing logic. Although ZeroMQ excels in raw performance and flexibility, these advantages are better leveraged internally (e.g., Router <-> Worker).
 
 ## Router Node
 
@@ -94,7 +94,7 @@ The Router is the central coordinator that receives validated inference requests
 
 ## Router <-> Worker Communication Layer, Communication Protocol
 
-The Router ⇄ Worker Communication Layer is the internal coordination layer where the router distributes inference jobs to available workers for execution on a GPU. This layer is responsible for efficiently routing jobs, balancing load, and ensuring low-latency communication between processes or machines within the inference system.
+The Router <-> Worker Communication Layer is the internal coordination layer where the router distributes inference jobs to available workers for execution on a GPU. This layer is responsible for efficiently routing jobs, balancing load, and ensuring low-latency communication between processes or machines within the inference system.
     
 Unlike the pevious layer, Component B uses ZeroMQ to efficiently dispatch jobs from the Router to Workers with near-zero overhead, flexible messaging patterns, and full control over batching and scheduling.
 gRPC is heavyweight and restrictive here, whereas ZeroMQ is ideal for internal, high-throughput, low-latency inference coordination. (Honestly, gRPC is fine and simpler to use here, I just want to learn ZeroMQ)
