@@ -2,8 +2,7 @@ syntax = "proto3";
 
 package inference;
 
-option go_package = "inferencepb";
-option cpp_namespace = "inference";
+option go_package = "/inferencepb";
 
 // ENUM: StatusCode
 
