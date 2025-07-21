@@ -5,24 +5,40 @@ package inference;
 option go_package = "inferencepb";
 option cpp_namespace = "inference";
 
+// ENUM: StatusCode
+
+enum StatusCode {
+  STATUS_OK = 0;
+  STATUS_ERROR = 1;
+  STATUS_INVALID_INPUT = 2;
+  STATUS_MODEL_NOT_FOUND = 3;
+  STATUS_TIMEOUT = 4;
+}
+
 // Message: InferenceRequest
 
 message InferenceRequest {
-  string job_id = 1;
-  string model_name = 2;
-  bytes input_data = 3;
-  map<string, string> metadata = 4;
+  string job_id = 1;                 // unique job_id toward the router
+  string model_name = 2;             // get model_name
+  bytes input_data = 3;              // raw bytes for our image/video/audio (just image for now)
+  map<string, string> metadata = 4;  // associated metadata, resolution, etc.
+
+  string content_type = 5;           // "image/png", "audio/wav", going to remain .png for now
+  int64 request_timestamp = 6;       // unix epoch milliseconds for request to gauge perf
 }
 
 // Message: InferenceResponse
 
 message InferenceResponse {
-  string job_id = 1;
-  bytes output_data = 2;
-  map<string, string> output_meta = 3;
-  int32 status_code = 4;
-  string error_message = 5;
+  string job_id = 1;                    // mirrors request's job_id
+  bytes output_data = 2;                // final result (e.g. upscaled image)
+  map<string, string> output_meta = 3;  // mirrors metadata, but with new resolution
+
+  StatusCode status_code = 4;           // enum: more explicit than raw int
+  string error_message = 5;             // optional if status_code != OK
+  int64 response_timestamp = 6;         // unix epoch millis for response to gauge perf
 }
+
 
 // Service: InferenceService
 
