@@ -1,10 +1,10 @@
-# MIDIShazam (Real-Time Classical Music Recognition)
+# MIDISearch (Real-Time Classical Music Recognition)
 
 Most commercial audio fingerprinting systems like Shazam rely on spectral hashing or robust fingerprinting of short audio clips. MIDIShazam takes a different approach: it leverages learned neural embeddings of MIDI or audio segments and performs **real-time vector search** across a database of classical pieces to identify the closest match.
 
 ---
 
-# MIDIShazam: Neural Search for Classical MIDI Music
+# MIDISearch: Neural Search for Classical MIDI Music
 
 MIDIShazam is a distributed, GPU-accelerated music recognition system that accepts incoming MIDI or audio clips, generates dense embeddings using a trained model, and performs real-time nearest neighbor search across a large corpus of classical music. Built for low-latency inference and high-accuracy retrieval, it enables music identification using short performance segments.
 
