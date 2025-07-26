@@ -55,7 +55,7 @@ This layer acts as the frontend API for the system. It validates requests, attac
 | **Timeouts & retries**   | Built-in deadline and retry semantics       |
 | **Observability**        | OpenTelemetry interceptors, structured logs |
 
-🧠 Unlike REST or raw TCP, gRPC balances performance with structured contract-based APIs, ideal for downstream orchestration.
+Unlike REST or raw TCP, gRPC balances performance with structured contract-based APIs, ideal for downstream orchestration.
 
 ---
 
