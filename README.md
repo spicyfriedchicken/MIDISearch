@@ -1,14 +1,14 @@
 # MIDISearch (Real-Time Classical Music Recognition)
 
-Most commercial audio fingerprinting systems like Shazam rely on spectral hashing or robust fingerprinting of short audio clips. MIDIShazam takes a different approach: it leverages learned neural embeddings of MIDI or audio segments and performs **real-time vector search** across a database of classical pieces to identify the closest match.
+Most commercial audio fingerprinting systems like Shazam rely on spectral hashing or robust fingerprinting of short audio clips. MidiSearch takes a different approach: it leverages learned neural embeddings of MIDI or audio segments and performs **real-time vector search** across a database of classical pieces to identify the closest match.
 
 ---
 
 # MIDISearch: Neural Search for Classical MIDI Music
 
-MIDIShazam is a distributed, GPU-accelerated music recognition system that accepts incoming MIDI or audio clips, generates dense embeddings using a trained model, and performs real-time nearest neighbor search across a large corpus of classical music. Built for low-latency inference and high-accuracy retrieval, it enables music identification using short performance segments.
+MidiSearch is a distributed, GPU-accelerated music recognition system that accepts incoming MIDI or audio clips, generates dense embeddings using a trained model, and performs real-time nearest neighbor search across a large corpus of classical music. Built for low-latency inference and high-accuracy retrieval, it enables music identification using short performance segments.
 
-This README outlines the architecture and design decisions for MIDIShazam, modeled after scalable ML inference systems with optimizations for concurrency, latency, and distributed inference.
+This README outlines the architecture and design decisions for MidiSearch, modeled after scalable ML inference systems with optimizations for concurrency, latency, and distributed inference.
 
 ---
 
@@ -28,7 +28,7 @@ This README outlines the architecture and design decisions for MIDIShazam, model
 
 ## Client Node
 
-The Client is the user-facing entry point into MIDIShazam. It captures a short MIDI or audio clip, packages it into a Protobuf message with metadata (e.g., duration, tempo, input type), and sends it to the Router.
+The Client is the user-facing entry point into MidiSearch. It captures a short MIDI or audio clip, packages it into a Protobuf message with metadata (e.g., duration, tempo, input type), and sends it to the Router.
 
 ### Responsibilities
 
